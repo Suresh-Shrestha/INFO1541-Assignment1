@@ -3,14 +3,17 @@ package EmployeeObjects;
 
 import EmployeeBlueprints.Employee;
 import EmployeeBlueprints.EmployeeType;
+import annotations.PayRate;
+import annotations.WeeklyPayCalculator;
 
 /**
  * Object used to represent the Salary employee in the system.
  * @author lhartman2
  * @version 1.0.1
  */
+@annotations.EmployeeType(type = "Salary")
 public final class SalaryEmployee extends Employee {
-    
+    @PayRate(type = "Salary")
     private double salary;
 
     /**
@@ -32,6 +35,7 @@ public final class SalaryEmployee extends Employee {
      * Calculates the weekly pay of the employee. salary/52
      * @return double for the weekly pay
      */
+    @WeeklyPayCalculator
     @Override
     public double calculateWeeklyPay()
     {
@@ -63,7 +67,7 @@ public final class SalaryEmployee extends Employee {
     @Override
     public double holidayBonus()
     {
-        return salary * .03365;
+        return (double)Math.round(salary * .03365 * 100)/100;
     }
 
     /**

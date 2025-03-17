@@ -1,15 +1,17 @@
 package EmployeeObjects;
-
 import EmployeeBlueprints.Employee;
 import EmployeeBlueprints.EmployeeType;
+import annotations.PayRate;
+import annotations.WeeklyPayCalculator;
 
 /**
  * This holds information of the hourly wage and hours worked for an hourly employee in the system.
  * @author lhartman2
  * @version 1.0.1
  */
-
+@annotations.EmployeeType(type = "Hourly")
 public final class HourlyEmployee extends Employee {
+    @PayRate(type = "Hourly")
     private double wage;
     private double hoursWorked;
 
@@ -69,13 +71,14 @@ public final class HourlyEmployee extends Employee {
      *
      * @return a double for the weekly pay
      */
+    @WeeklyPayCalculator
     @Override
     public double calculateWeeklyPay()
     {
         double pay = wage * hoursWorked;
         if (hoursWorked > 40)
         {
-            pay = wage * 40 + (wage*1.25) * (hoursWorked-40);
+            pay = wage * 40 + (double)Math.round(wage*1.5*100 * (hoursWorked-40))/100;
         }
         
         return pay;

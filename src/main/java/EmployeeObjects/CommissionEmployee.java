@@ -2,15 +2,19 @@ package EmployeeObjects;
 
 import EmployeeBlueprints.Employee;
 import EmployeeBlueprints.EmployeeType;
+import annotations.PayRate;
+import annotations.WeeklyPayCalculator;
 
 /**
  * Commission Employee that holds the data on sales and their commission rate.
  * @author lhartman2
  * @version 1.0.1
  */
+@annotations.EmployeeType(type = "Commission")
 public final class CommissionEmployee extends Employee {
     
     private double sales;
+    @PayRate(type = "Commission")
     private double rate;
 
     /**
@@ -43,7 +47,9 @@ public final class CommissionEmployee extends Employee {
      */
     public void increaseSales(double s)
     {
-        sales += s;
+        if(s>0){
+            sales += s;
+        }
     }
 
     /**
@@ -66,6 +72,7 @@ public final class CommissionEmployee extends Employee {
      * Calculates the employee's pay. rate * sales
      * @return a double for the pay
      */
+    @WeeklyPayCalculator
     @Override
     public double calculateWeeklyPay()
     {
